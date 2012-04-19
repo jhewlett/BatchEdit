@@ -1,59 +1,62 @@
 import sys
 sys.path.append("..\\ImageEditor\\")
-
 from ImageEditor import ImageBorder
 from ImageEditor import ImageResizer
 from ImageEditor import ImageContrastEnhancer
 from ImageEditor import ImageSaturationEnhancer
 from ImageEditor import ImageSharpener
 from ImageEditor import ImageRotater
-import Args
-import unittest
-
 import BatchSettings
+import unittest
 
 class BatchJob:
     def __init__(self, tokens):
         self.__commands, self.__settings = self.__parse_tokens(tokens)
 
     def __parse_tokens(self, tokens):     
-        settings = BatchSettings.BatchSettings()
+        settings = BatchSettings.BatchSettings(tokens)
         commands = []
         for token1, token2 in tokens:
             command = None
             
-            if token1 == "--quality":
-                settings.quality = int(token2)
-            elif token1 == "--input":
-                settings.input = token2
-            elif token1 == "--output":
-                settings.output = token2
-            elif token1 == "--files":
-                settings.files = token2
-            elif token1 == "--forceorder":
-                settings.force_order = True
-            elif token1 == "--sharpen":
-                if token2 == "":
-                    token2 = 1.3
-                command = ImageSharpener.ImageSharpener(float(token2))
+            if token1 == "--sharpen":
+                try:
+                    command = ImageSharpener.ImageSharpener(float(token2))
+                except ValueError:
+                    if token2 != "":
+                        print "Warning: could not parse --sharpen argument '" + token2 + "'. Defaulting strength to 1.3."
+                    command = ImageSharpener.ImageSharpener(1.3)
             elif token1 == "--resize":
-                if token2 == "":
-                    token2 = 640
-                command = ImageResizer.ImageResizer(int(token2))
+                try:
+                    command = ImageResizer.ImageResizer(int(token2))
+                except ValueError:
+                    if token2 != "":
+                        print "Warning: could not parse --resize argument '" + token2 + "'. Defaulting size to 640."
+                    command = ImageResizer.ImageResizer(640)
             elif token1 == "--contrast":
-                if token2 == "":
-                    token2 = 1.25
-                command = ImageContrastEnhancer.ImageContrastEnhancer(float(token2))
+                try:
+                    command = ImageContrastEnhancer.ImageContrastEnhancer(float(token2))
+                except ValueError:
+                    if token2 != "":
+                        print "Warning: could not parse --contrast argument '" + token2 + "'. Defaulting strength to 1.25."
+                    command = ImageContrastEnhancer.ImageContrastEnhancer(1.25)
             elif token1 == "--saturation":
-                if token2 == "":
-                    token2 = 1.15
-                command = ImageSaturationEnhancer.ImageSaturationEnhancer(float(token2))
+                try:
+                    command = ImageSaturationEnhancer.ImageSaturationEnhancer(float(token2))
+                except ValueError:
+                    if token2 != "":
+                        print "Warning: could not parse --saturation argument '" + token2 + "'. Defaulting strength to 1.15."
+                        command = ImageSaturationEnhancer.ImageSaturationEnhancer(1.15)
             elif token1 == "--grayscale":
                 command = ImageSaturationEnhancer.ImageSaturationEnhancer(0)
             elif token1 == "--border":
-                if token2 == "":
-                    token2 = 10
-                command = ImageBorder.ImageBorder(int(token2))
+                try:
+                    command = ImageBorder.ImageBorder(int(token2))
+                except ValueError:
+                    if token2 != "":
+                        print "Warning: could not parse --border argument '" + token2 + "'. Defaulting thickness to 10 pixels."
+                        
+                    command = ImageBorder.ImageBorder(10)
             elif token1 == "--autorotate":
                 command = ImageRotater.ImageRotater()
 

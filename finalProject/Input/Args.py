@@ -10,10 +10,6 @@ class Args:
         return self.__options
 
     def __parse_input(self, args):
-        #options = re.findall('-\w+\s?(?:".+?"|\d*\.?\d+)?', input)
-        #options = re.findall('-(\w+)\s?((?:"|\').+?(?:"|\')|\d*\.?\d+)?', args)
-        #options = re.findall('-(\w+)\s?(?:(?:"|\')(.+?|\d*\.?\d+)(?:"|\'))?', input)
-        
         options = []
         
         for i in xrange(0, len(args)):

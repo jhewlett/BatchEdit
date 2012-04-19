@@ -7,34 +7,36 @@ class ImageRotater:
         pass
     
     def process(self, image):
-        ret = {}
-        info = image._getexif()
-        for tag, value in info.items():
-            decoded = TAGS.get(tag, tag)
-            ret[decoded] = value
+        exif_tags = {}
+        if hasattr(image, "_getexif"):
+            info = image._getexif()
+            for tag, value in info.items():
+                decoded = TAGS.get(tag, tag)
+                exif_tags[decoded] = value
             
         orientation = 1
-        try:
-            orientation = ret["Orientation"]
-        except KeyError:
-            return image
         
-        if orientation == 2:
-            return image.transpose(Image.FLIP_LEFT_RIGHT)
+        if exif_tags.has_key("Orientation"):
+            orientation = exif_tags["Orientation"]
+
+        if orientation == 1:
+            pass        
+        elif orientation == 2:
+            image = image.transpose(Image.FLIP_LEFT_RIGHT)
         elif orientation == 3:
-            return image.rotate(180)
+            image = image.rotate(180)
         elif orientation == 4:
             image = image.transpose(Image.FLIP_LEFT_RIGHT)
-            return image.rotate(180)
+            image = image.rotate(180)
         elif orientation == 5:
             image = image.rotate(270)
-            return image.transpose(Image.FLIP_LEFT_RIGHT)
+            image = image.transpose(Image.FLIP_LEFT_RIGHT)
         elif orientation == 6:
-            return image.rotate(270)
+            image = image.rotate(270)
         elif orientation == 7:
             image = image.transpose(Image.FLIP_LEFT_RIGHT)
-            return image.rotate(270)
+            image = image.rotate(270)
         elif orientation == 8:
-            return image.rotate(90)
-        else:
-            return image
+            image = image.rotate(90)
+
+        return image

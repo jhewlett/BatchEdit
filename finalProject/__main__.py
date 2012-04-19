@@ -1,8 +1,9 @@
-import Args
 import sys
-sys.path.append("..\\ImageEditor\\")
+sys.path.append("ImageEditor\\")
+sys.path.append("Input\\")
 from ImageEditor import BatchImageEditor
-import BatchJob
+from Input import Args
+from Input import BatchJob
 
 args = Args.Args(sys.argv[1:])
 
