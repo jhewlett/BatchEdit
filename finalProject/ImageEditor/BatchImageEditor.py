@@ -18,16 +18,17 @@ class BatchImageEditor:
 
     def process_images(self, batch_job):
         settings = batch_job.get_settings()
-
-        if not os.path.isdir(settings.input):
-            print "Error: could not find input directory '" + settings.input + "'"
-            return
-
-        if not os.path.isdir(settings.output):
-            print "Error: could not find output directory '" + settings.output + "'"
-            return
         
-        self.__process_input_images(batch_job, settings)
+        if settings.process:
+            if not os.path.isdir(settings.input):
+                print "Error: could not find input directory '" + settings.input + "'"
+                return
+    
+            if not os.path.isdir(settings.output):
+                print "Error: could not find output directory '" + settings.output + "'"
+                return
+            
+            self.__process_input_images(batch_job, settings)
         
     def __process_input_images(self, batch_job, settings):
         os.chdir(settings.input)
@@ -36,7 +37,7 @@ class BatchImageEditor:
         
         count = 0
         
-        threads = []
+        #threads = []
         
         for file_name in glob.glob(settings.files):
             count += 1
@@ -46,10 +47,10 @@ class BatchImageEditor:
             
             print "Processing image '" + file_name + "'"
             
-           # thread = ProcessingThread.ProcessingThread(input_file, output_file, batch_job.get_commands(), settings.quality)
-            #threads.append(thread)
+           #thread = ProcessingThread.ProcessingThread(input_file, output_file, batch_job.get_commands(), settings.quality)
+           #threads.append(thread)
             
-           # thread.start()
+           #thread.start()
             
             im = Image.open(input_file)
             
@@ -58,8 +59,8 @@ class BatchImageEditor:
             
             im.save(output_file, 'JPEG', quality=settings.quality)
             
-        for t in threads:
-            t.join()
+        #for t in threads:
+         #   t.join()
             
         if count == 0:
             print "Could not find any files matching filter '" + settings.files + "'"

@@ -5,6 +5,7 @@ class BatchSettings:
         self.quality = 95
         self.files = "*.jpg"
         self.force_order = False
+        self.process = True
         
         self.__parse_input(tokens)
 

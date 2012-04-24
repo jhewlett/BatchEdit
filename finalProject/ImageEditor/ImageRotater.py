@@ -1,10 +1,14 @@
 from PIL.ExifTags import TAGS
 from PIL import Image
+import Order
 
 class ImageRotater:
     
     def __init__(self):
         pass
+    
+    def get_order(self):
+        return Order.PRE_PROCESS
     
     def process(self, image):
         exif_tags = {}

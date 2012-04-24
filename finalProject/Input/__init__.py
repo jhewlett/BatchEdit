@@ -1,1 +1,1 @@
-__all__ = ["Args.py", "BatchJob.py", "BatchSettings.py"]
+__all__ = ["Args.py", "BatchJob.py", "BatchSettings.py", "Help.py"]

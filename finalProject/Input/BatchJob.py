@@ -7,6 +7,7 @@ from ImageEditor import ImageSaturationEnhancer
 from ImageEditor import ImageSharpener
 from ImageEditor import ImageRotater
 import BatchSettings
+import Help
 import unittest
 
 class BatchJob:
@@ -20,50 +21,35 @@ class BatchJob:
             command = None
             
             if token1 == "--sharpen":
-                try:
-                    command = ImageSharpener.ImageSharpener(float(token2))
-                except ValueError:
-                    if token2 != "":
-                        print "Warning: could not parse --sharpen argument '" + token2 + "'. Defaulting strength to 1.3."
-                    command = ImageSharpener.ImageSharpener(1.3)
+                command = ImageSharpener.ImageSharpener(token2)
             elif token1 == "--resize":
-                try:
-                    command = ImageResizer.ImageResizer(int(token2))
-                except ValueError:
-                    if token2 != "":
-                        print "Warning: could not parse --resize argument '" + token2 + "'. Defaulting size to 640."
-                    command = ImageResizer.ImageResizer(640)
+                command = ImageResizer.ImageResizer(token2)
             elif token1 == "--contrast":
-                try:
-                    command = ImageContrastEnhancer.ImageContrastEnhancer(float(token2))
-                except ValueError:
-                    if token2 != "":
-                        print "Warning: could not parse --contrast argument '" + token2 + "'. Defaulting strength to 1.25."
-                    command = ImageContrastEnhancer.ImageContrastEnhancer(1.25)
+                command = ImageContrastEnhancer.ImageContrastEnhancer(token2)
             elif token1 == "--saturation":
-                try:
-                    command = ImageSaturationEnhancer.ImageSaturationEnhancer(float(token2))
-                except ValueError:
-                    if token2 != "":
-                        print "Warning: could not parse --saturation argument '" + token2 + "'. Defaulting strength to 1.15."
-                        command = ImageSaturationEnhancer.ImageSaturationEnhancer(1.15)
+                command = ImageSaturationEnhancer.ImageSaturationEnhancer(token2)
             elif token1 == "--grayscale":
                 command = ImageSaturationEnhancer.ImageSaturationEnhancer(0)
             elif token1 == "--border":
-                try:
-                    command = ImageBorder.ImageBorder(int(token2))
-                except ValueError:
-                    if token2 != "":
-                        print "Warning: could not parse --border argument '" + token2 + "'. Defaulting thickness to 10 pixels."
-                        
-                    command = ImageBorder.ImageBorder(10)
+                command = ImageBorder.ImageBorder(token2)
             elif token1 == "--autorotate":
                 command = ImageRotater.ImageRotater()
-
+            elif token1 == "--help":
+                Help.Help.print_help()
+                #signal that we don't want to process the images
+                settings.process = False
+                break
+            
             if command != None:
                 commands.append(command)
+                
+        if not settings.force_order:
+            commands = self.__order_commands(commands)
 
         return (commands, settings)
+    
+    def __order_commands(self, commands):
+        return sorted(commands, key = lambda command : command.get_order())
 
     def get_commands(self):
         return self.__commands
@@ -92,6 +78,9 @@ class BatchJobTests(unittest.TestCase):
         commands = job.get_commands()
         
         self.assertEqual(7, len(commands))
+        # Make sure it got sorted
+        for i in xrange(0, len(commands) - 1):
+            self.assertTrue(commands[i].get_order() <= commands[i+1].get_order())
             
 if __name__ == '__main__':
     unittest.main()
