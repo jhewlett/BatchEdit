@@ -1,10 +1,6 @@
-import sys
-sys.path.append("..\\Input\\")
-
 import BatchJob
 import ImageResizer
 import ImageSharpener
-import ProcessingThread
 
 from PIL import Image
 from PIL.ExifTags import TAGS
@@ -20,49 +16,35 @@ class BatchImageEditor:
         settings = batch_job.get_settings()
         
         if settings.process:
-            if not os.path.isdir(settings.input):
-                print "Error: could not find input directory '" + settings.input + "'"
-                return
-    
-            if not os.path.isdir(settings.output):
-                print "Error: could not find output directory '" + settings.output + "'"
-                return
+            settings = batch_job.get_settings()
+            os.chdir(settings.input)
             
-            self.__process_input_images(batch_job, settings)
-        
-    def __process_input_images(self, batch_job, settings):
-        os.chdir(settings.input)
-        
-        print "Getting images from '" + settings.input + "'"
-        
-        count = 0
-        
-        #threads = []
-        
-        for file_name in glob.glob(settings.files):
-            count += 1
+            print "Getting images from '" + settings.input + "'."
             
-            input_file = os.path.join(settings.input, file_name)
-            output_file = os.path.join(settings.output, file_name)
-            
-            print "Processing image '" + file_name + "'"
-            
-           #thread = ProcessingThread.ProcessingThread(input_file, output_file, batch_job.get_commands(), settings.quality)
-           #threads.append(thread)
-            
-           #thread.start()
-            
-            im = Image.open(input_file)
-            
-            for action in batch_job.get_commands():
-                im = action.process(im)
-            
-            im.save(output_file, 'JPEG', quality=settings.quality)
-            
-        #for t in threads:
-         #   t.join()
-            
-        if count == 0:
-            print "Could not find any files matching filter '" + settings.files + "'"
-        else:
-            print "Finished processing " + str(count) + " files to '" + settings.output + "'"
+            count = 0
+  
+            for file_name in glob.glob(settings.files):
+                input_file = os.path.join(settings.input, file_name)
+                output_file = os.path.join(settings.output, file_name)
+                
+                try:
+                    im = Image.open(input_file)
+                except IOError:
+                    print "Warning: could not open input file '" + file_name + "'. Ensure that it is a valid image."
+                    continue
+                
+                print "Processing image '" + file_name + "'."
+                
+                count += 1
+                
+                for command in batch_job.get_commands():
+                    im = command.process(im)
+                
+                im.save(output_file, 'JPEG', quality=settings.quality)
+                
+                del im
+                
+            if count == 0:
+                print "Could not find any image files matching filter '" + settings.files + "'."
+            else:
+                print "Finished processing " + str(count) + " file(s) to '" + settings.output + "'."

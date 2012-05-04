@@ -1,14 +1,12 @@
-import sys
-sys.path.append("..\\ImageEditor\\")
 from ImageEditor import ImageBorder
 from ImageEditor import ImageResizer
 from ImageEditor import ImageContrastEnhancer
 from ImageEditor import ImageSaturationEnhancer
 from ImageEditor import ImageSharpener
 from ImageEditor import ImageRotater
+from ImageEditor import ImageWatermark
+from ImageEditor import ImageBrightnessEnhancer
 import BatchSettings
-import Help
-import unittest
 
 class BatchJob:
     def __init__(self, tokens):
@@ -31,14 +29,17 @@ class BatchJob:
             elif token1 == "--grayscale":
                 command = ImageSaturationEnhancer.ImageSaturationEnhancer(0)
             elif token1 == "--border":
-                command = ImageBorder.ImageBorder(token2)
+                if "," in token2:
+                    args = token2.split(",")
+                else:
+                    args = [token2, "black"]
+                command = ImageBorder.ImageBorder(args[0], args[1])
             elif token1 == "--autorotate":
                 command = ImageRotater.ImageRotater()
-            elif token1 == "--help":
-                Help.Help.print_help()
-                #signal that we don't want to process the images
-                settings.process = False
-                break
+            elif token1 == "--watermark":
+                command = ImageWatermark.ImageWatermark(token2)
+            elif token1 == "--brightness":
+                command = ImageBrightnessEnhancer.ImageBrightnessEnhancer(token2)
             
             if command != None:
                 commands.append(command)
@@ -56,31 +57,3 @@ class BatchJob:
 
     def get_settings(self):
         return self.__settings
-    
-class BatchJobTests(unittest.TestCase):
-    def test_parse_input_settings(self):
-        options = [("--input", "c:\\input with spaces\\"), ("--output", "c:\\output"), \
-                      ("--quality", "85"), ("--forceorder", ""), ("--files", "*.jpg")]
-        job = BatchJob(options)
-        settings = job.get_settings()
-        
-        self.assertEqual(True, settings.force_order)
-        self.assertEqual(85, settings.quality)
-        self.assertEqual('c:\\input with spaces\\', settings.input)
-        self.assertEqual('c:\\output', settings.output)
-        self.assertEqual('*.jpg', settings.files)
-        
-    def test_parse_input_commands(self):
-        options = [("--saturation", "1.5"), ("--contrast", "1.6"), ("--resize", "720"), \
-                      ("--sharpen", "1.3"), ("--grayscale", ""), ("--border", "10"), ("--autorotate", "")]
-        
-        job = BatchJob(options)
-        commands = job.get_commands()
-        
-        self.assertEqual(7, len(commands))
-        # Make sure it got sorted
-        for i in xrange(0, len(commands) - 1):
-            self.assertTrue(commands[i].get_order() <= commands[i+1].get_order())
-            
-if __name__ == '__main__':
-    unittest.main()

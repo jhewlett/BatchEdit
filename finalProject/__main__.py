@@ -1,6 +1,10 @@
 import sys
-sys.path.append("ImageEditor\\")
-sys.path.append("Input\\")
+import os
+
+cur_dir = os.path.abspath(os.path.dirname(__file__))
+sys.path.append(os.path.join(cur_dir, "ImageEditor"))
+sys.path.append(os.path.join(cur_dir, "Input"))
+
 from ImageEditor import BatchImageEditor
 from Input import Args
 from Input import BatchJob
