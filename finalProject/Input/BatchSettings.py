@@ -50,6 +50,8 @@ class BatchSettings:
             except OSError:
                 print "Error: output path '" + self.output + "' does not exist and could not be created."
                 self.process = False
+        else:
+            self.output = os.path.abspath(self.output)
     
     #Needed for Linux, where ~ represents the current user directory
     def __check_expand_user(self, path):
