@@ -127,7 +127,7 @@ option.</P>
 scripts\BatchEdit.zip --input C:\input --output C:\output
 --autorotate<BR>--resize 720 --grayscale --contrast --sharpen 1.3
 --border 5,gray<BR>--watermark C:\logo_transparent.png</FONT></FONT></P>
-<P STYLE="margin-bottom: 0.14in"><BR><BR>
+<P STYLE="margin-bottom: 0.14in">
 </P>
 <P STYLE="margin-bottom: 0.14in">Note that because we left out the
 <FONT FACE="Consolas, serif"><FONT SIZE=2>--contrast</FONT></FONT>
