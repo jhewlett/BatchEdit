@@ -1,14 +1,16 @@
 from PIL.ExifTags import TAGS
 from PIL import Image
 import Order
+from Command import Command
 
-class ImageRotater:
-    
-    def __init__(self):
-        pass
-    
+class ImageRotater(Command):
+     
     def get_order(self):
         return Order.PRE_PROCESS
+    
+    @classmethod
+    def get_option_name(cls):
+        return "--autorotate"
     
     def process(self, image):
         exif_tags = {}

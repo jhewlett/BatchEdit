@@ -1,5 +1,5 @@
 import os
-import Help
+from Help import Help
 
 class BatchSettings:
     def __init__(self, tokens):
@@ -16,7 +16,7 @@ class BatchSettings:
     def __parse_input(self, tokens):
         for token1, token2 in tokens:     
             if token1 == "--help":
-                Help.Help.print_help()
+                Help.print_help()
                 self.process = False
                 self.show_help = True
                 break   
@@ -29,6 +29,7 @@ class BatchSettings:
                     if self.quality < 1 or self.quality > 100:
                         print "Warning: --quality argument needs to be between 1 and 100. Defaulting quality to 95."
                         self.quality = 95
+                        
             elif token1 == "--input":
                 self.input = self.__check_expand_user(token2)
             elif token1 == "--output":
@@ -53,8 +54,8 @@ class BatchSettings:
         else:
             self.output = os.path.abspath(self.output)
     
-    #Needed for Linux, where ~ represents the current user directory
     def __check_expand_user(self, path):
+        """Needed for Linux, where ~ represents the current user directory"""
         if "~" in path:
             path = os.path.expanduser(path)
         return path

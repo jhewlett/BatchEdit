@@ -1,8 +1,9 @@
 from PIL import Image
 import Order
 import os
+from Command import Command
 
-class ImageWatermark:
+class ImageWatermark(Command):
     def __init__(self, path_to_watermark):
         
         self.__path = path_to_watermark
@@ -15,6 +16,10 @@ class ImageWatermark:
         
     def get_order(self):
         return Order.AFTER_RESIZE
+    
+    @classmethod
+    def get_option_name(cls):
+        return "--watermark"
 
     def process(self, image):
         if os.path.isfile(self.__path):

@@ -1,7 +1,8 @@
 from PIL import ImageEnhance
 import Order
+from Command import Command
 
-class ImageSharpener:
+class ImageSharpener(Command):
     def __init__(self, strength):
         
         try:
@@ -13,8 +14,13 @@ class ImageSharpener:
         
     def get_order(self):
         return Order.AFTER_RESIZE
+    
+    @classmethod
+    def get_option_name(cls):
+        return "--sharpen"
 
     def process(self, image):
         sharpener = ImageEnhance.Sharpness(image)
         
         return sharpener.enhance(self.__strength)
+            

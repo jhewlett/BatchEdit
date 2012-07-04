@@ -1,7 +1,8 @@
 from PIL import ImageEnhance
 import Order
+from Command import Command
 
-class ImageBrightnessEnhancer:
+class ImageBrightnessEnhancer(Command):
     def __init__(self, strength):
         try:
             self.__strength = float(strength)
@@ -12,6 +13,10 @@ class ImageBrightnessEnhancer:
 
     def get_order(self):
         return Order.MAIN_EDITS
+    
+    @classmethod
+    def get_option_name(cls):
+        return "--brightness"
 
     def process(self, image):
         brightness_enhancer = ImageEnhance.Brightness(image)

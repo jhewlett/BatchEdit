@@ -1,7 +1,8 @@
 from PIL import ImageEnhance
 import Order
+from Command import Command
 
-class ImageSaturationEnhancer:
+class ImageSaturationEnhancer(Command):
     def __init__(self, strength):
         try:
             self.__strength = float(strength)
@@ -12,6 +13,10 @@ class ImageSaturationEnhancer:
         
     def get_order(self):
         return Order.MAIN_EDITS
+    
+    @classmethod
+    def get_option_name(cls):
+        return "--saturation"
 
     def process(self, image):
         saturation = ImageEnhance.Color(image)

@@ -17,21 +17,22 @@ class BatchJobTests(unittest.TestCase):
         
         self.assertEqual(True, settings.force_order)
         self.assertEqual(85, settings.quality)
-        self.assertEqual('c:\\input with spaces', settings.input)
+        self.assertEqual('c:\\input with spaces\\', settings.input)
         self.assertEqual('c:\\output', settings.output)
         self.assertEqual('*.jpg', settings.files)
-        
+#        
     def test_parse_input_commands(self):
-        options = [("--saturation", "1.5"), ("--contrast", "1.6"), ("--resize", "720"), \
-                      ("--sharpen", "1.3"), ("--grayscale", ""), ("--border", "10"), ("--autorotate", "")]
+        options = [("--saturation", "1.5"), ("--contrast", "1.6"), ("--resize", "720"), ("--sharpen", "1.3"), \
+                        ("--grayscale", ""), ("--border", "10"), ("--autorotate", ""), ("--watermark", "C:\test.png")]
         
         job = BatchJob.BatchJob(options)
         commands = job.get_commands()
         
-        self.assertEqual(7, len(commands))
+        self.assertEqual(8, len(commands))
+        
         # Make sure it got sorted
         for i in xrange(0, len(commands) - 1):
             self.assertTrue(commands[i].get_order() <= commands[i+1].get_order())
-            
+           
 if __name__ == '__main__':
     unittest.main()

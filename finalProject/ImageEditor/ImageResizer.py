@@ -1,7 +1,8 @@
 from PIL import Image
 import Order
+from Command import Command
 
-class ImageResizer:
+class ImageResizer(Command):
     def __init__(self, final_size):
         
         try:
@@ -13,6 +14,10 @@ class ImageResizer:
         
     def get_order(self):
         return Order.AFTER_MAIN_EDITS
+    
+    @classmethod
+    def get_option_name(cls):
+        return "--resize"
 
     def process(self, image):  
         new_width, new_height = self.__get_new_size(image.size, self.__new_longest_dim)

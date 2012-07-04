@@ -1,7 +1,3 @@
-import BatchJob
-import ImageResizer
-import ImageSharpener
-
 from PIL import Image
 from PIL.ExifTags import TAGS
 
