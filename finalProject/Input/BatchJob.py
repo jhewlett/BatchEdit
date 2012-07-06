@@ -5,13 +5,16 @@ class BatchJob:
     def __init__(self, options):
         self.__commands, self.__settings = self.__parse_tokens(options)
 
-    def __parse_tokens(self, tokens):     
-        settings = BatchSettings(tokens)
+    def __parse_tokens(self, options):     
+        settings = BatchSettings(options)
 
         commands = []
         
         for commandSub in self.__get_all_commands(Command.Command):
-            commandSub.parse(tokens, commands)
+            commandSub.parse(options, commands)
+            
+        for name, value in options:
+            print "Warning: option '" + name + "' is not recognized." 
                 
         if not settings.force_order:
             commands = self.__order_commands(commands)
