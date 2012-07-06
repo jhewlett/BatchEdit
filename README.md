@@ -61,8 +61,6 @@ take a decimal argument for the strength. A value of 1 returns the
 original image. A value less than 1 will decrease the effect, while a
 value greater will increase it. With the exception of <FONT FACE="Consolas, serif"><FONT SIZE=2>--watermark</FONT></FONT>,
 all of the arguments are optional.</P>
-<P STYLE="margin-bottom: 0in; line-height: 100%"><BR>
-</P>
 <P STYLE="margin-bottom: 0in; line-height: 100%"><FONT FACE="Consolas, serif"><FONT SIZE=2><B>--sharpen
 [strength]:</B></FONT></FONT> Blurs or sharpens the image according
 to the strength. Defaults to 1.3.</P>
