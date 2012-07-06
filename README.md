@@ -59,7 +59,7 @@ the order typed. Defaults to false.</P>
 <P STYLE="margin-bottom: 0in; line-height: 100%">Many of the filters
 take a decimal argument for the strength. A value of 1 returns the
 original image. A value less than 1 will decrease the effect, while a
-value greater will increase it. With the exception of <BR><FONT FACE="Consolas, serif"><FONT SIZE=2>--watermark</FONT></FONT>,
+value greater will increase it. With the exception of <FONT FACE="Consolas, serif"><FONT SIZE=2>--watermark</FONT></FONT>,
 all of the arguments are optional.</P>
 <P STYLE="margin-bottom: 0in; line-height: 100%"><BR>
 </P>
