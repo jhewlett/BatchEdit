@@ -2,7 +2,7 @@ import os
 from Help import Help
 
 class BatchSettings:
-    def __init__(self, tokens):
+    def __init__(self, options):
         self.input = ""
         self.output = ""
         self.quality = 95
@@ -11,11 +11,11 @@ class BatchSettings:
         self.process = True
         self.show_help = False
         
-        self.__parse_input(tokens)
+        self.__parse_input(options)
 
-    def __parse_input(self, tokens):
-        for token in tokens[:]:
-            name, value = token
+    def __parse_input(self, options):
+        for option in options[:]:
+            name, value = option
             
             match = True
               
@@ -44,16 +44,17 @@ class BatchSettings:
                 match = False
                 
             if match:
-                tokens.remove(token)
+                options.remove(option)
             
     def check_paths(self):
         self.input = self.__check_expand_user(self.input)
         self.output = self.__check_expand_user(self.output)
         
-        if self.__check_dir_exists(self.input, "input"):
+        if self.__check_dir_exists(self.input):
             self.input = os.path.abspath(self.input)
         else:
             self.process = False
+            return
             
         if not os.path.isdir(self.output):
             try:
@@ -71,10 +72,9 @@ class BatchSettings:
             path = os.path.expanduser(path)
         return path
     
-    def __check_dir_exists(self, path, path_name):
+    def __check_dir_exists(self, path):
         if not os.path.isdir(path):
-            if not self.show_help:
-                print "Error: could not find " + path_name + " directory '" + path + "'."
+            print "Error: could not find input directory '" + path + "'."
             return False
         return True 
     

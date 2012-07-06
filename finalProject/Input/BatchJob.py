@@ -2,8 +2,8 @@ from ImageEditor import *
 from BatchSettings import BatchSettings
 
 class BatchJob:
-    def __init__(self, tokens):
-        self.__commands, self.__settings = self.__parse_tokens(tokens)
+    def __init__(self, options):
+        self.__commands, self.__settings = self.__parse_tokens(options)
 
     def __parse_tokens(self, tokens):     
         settings = BatchSettings(tokens)
