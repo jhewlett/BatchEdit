@@ -14,30 +14,40 @@ class BatchSettings:
         self.__parse_input(tokens)
 
     def __parse_input(self, tokens):
-        for token1, token2 in tokens:     
-            if token1 == "--help":
+        for token in tokens[:]:
+            name, value = token
+            
+            match = True
+              
+            if name == "--help":
                 Help.print_help()
                 self.process = False
                 self.show_help = True
                 break   
-            if token1 == "--quality":
+            
+            if name == "--quality":
                 try:
-                    self.quality = int(token2)
+                    self.quality = int(value)
                 except ValueError:
-                    print "Warning: could not parse --quality argument '" + token2 + "'. Defaulting quality to 95."
+                    print "Warning: could not parse --quality argument '" + value + "'. Defaulting quality to 95."
                 else:
                     if self.quality < 1 or self.quality > 100:
                         print "Warning: --quality argument needs to be between 1 and 100. Defaulting quality to 95."
                         self.quality = 95
                         
-            elif token1 == "--input":
-                self.input = self.__check_expand_user(token2)
-            elif token1 == "--output":
-                self.output = self.__check_expand_user(token2)
-            elif token1 == "--files":
-                self.files = token2
-            elif token1 == "--forceorder":
+            elif name == "--input":
+                self.input = self.__check_expand_user(value)
+            elif name == "--output":
+                self.output = self.__check_expand_user(value)
+            elif name == "--files":
+                self.files = value
+            elif name == "--forceorder":
                 self.force_order = True
+            else:
+                match = False
+                
+            if match:
+                tokens.remove(token)
                 
         if self.__check_dir_exists(self.input, "input"):
             self.input = os.path.abspath(self.input)

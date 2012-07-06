@@ -20,6 +20,8 @@ class BatchJobTests(unittest.TestCase):
         self.assertEqual('c:\\input with spaces\\', settings.input)
         self.assertEqual('c:\\output', settings.output)
         self.assertEqual('*.jpg', settings.files)
+        
+        self.assertEqual(0, len(options), "Did not remove options along the way.")
 #        
     def test_parse_input_commands(self):
         options = [("--saturation", "1.5"), ("--contrast", "1.6"), ("--resize", "720"), ("--sharpen", "1.3"), \
@@ -30,9 +32,10 @@ class BatchJobTests(unittest.TestCase):
         
         self.assertEqual(8, len(commands))
         
-        # Make sure it got sorted
         for i in xrange(0, len(commands) - 1):
-            self.assertTrue(commands[i].get_order() <= commands[i+1].get_order())
+            self.assertTrue(commands[i].get_order() <= commands[i+1].get_order(), "Did not order the commands")
+                    
+        self.assertEqual(0, len(options), "Did not remove options along the way.")
            
 if __name__ == '__main__':
     unittest.main()
