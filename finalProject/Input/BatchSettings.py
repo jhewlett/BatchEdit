@@ -20,12 +20,9 @@ class BatchSettings:
             match = True
               
             if name == "--help":
-                Help.print_help()
                 self.process = False
-                self.show_help = True
-                break   
-            
-            if name == "--quality":
+                self.show_help = True 
+            elif name == "--quality":
                 try:
                     self.quality = int(value)
                 except ValueError:
@@ -36,9 +33,9 @@ class BatchSettings:
                         self.quality = 95
                         
             elif name == "--input":
-                self.input = self.__check_expand_user(value)
+                self.input = value
             elif name == "--output":
-                self.output = self.__check_expand_user(value)
+                self.output = value
             elif name == "--files":
                 self.files = value
             elif name == "--forceorder":
@@ -48,7 +45,11 @@ class BatchSettings:
                 
             if match:
                 tokens.remove(token)
-                
+            
+    def check_paths(self):
+        self.input = self.__check_expand_user(self.input)
+        self.output = self.__check_expand_user(self.output)
+        
         if self.__check_dir_exists(self.input, "input"):
             self.input = os.path.abspath(self.input)
         else:

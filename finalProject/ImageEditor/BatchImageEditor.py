@@ -1,5 +1,6 @@
 from PIL import Image
 from PIL.ExifTags import TAGS
+from Input import Help
 
 import glob
 import os
@@ -11,8 +12,12 @@ class BatchImageEditor:
     def process_images(self, batch_job):
         settings = batch_job.get_settings()
         
+        if settings.show_help:
+            Help.Help.print_help()
+        else:
+            settings.check_paths()        
+        
         if settings.process:
-            settings = batch_job.get_settings()
             os.chdir(settings.input)
             
             print "Getting images from '" + settings.input + "'."

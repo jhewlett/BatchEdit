@@ -11,15 +11,17 @@ import unittest
 class BatchJobTests(unittest.TestCase):
     def test_parse_input_settings(self):
         options = [("--input", "c:\\input with spaces\\"), ("--output", "c:\\output\\"), \
-                      ("--quality", "85"), ("--forceorder", ""), ("--files", "*.jpg")]
+                      ("--quality", "85"), ("--forceorder", ""), ("--files", "*.jpg"), ("--help", "")]
         job = BatchJob.BatchJob(options)
         settings = job.get_settings()
         
         self.assertEqual(True, settings.force_order)
         self.assertEqual(85, settings.quality)
         self.assertEqual('c:\\input with spaces\\', settings.input)
-        self.assertEqual('c:\\output', settings.output)
+        self.assertEqual('c:\\output\\', settings.output)
         self.assertEqual('*.jpg', settings.files)
+        self.assertEqual(False, settings.process)
+        self.assertEqual(True, settings.show_help)
         
         self.assertEqual(0, len(options), "Did not remove options along the way.")
 #        
