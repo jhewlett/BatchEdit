@@ -8,15 +8,15 @@ class ImageBorder(Command):
         if ',' in args:
             parts = args.split(',')
             thickness = parts[0]
-            self.__color = parts[1]
+            self.color = parts[1]
         else:
             thickness = args
-            self.__color = "black"
+            self.color = "black"
                 
         try:
-            self.__thickness = int(thickness)
+            self.thickness = int(thickness)
         except ValueError:
-            self.__thickness = 10
+            self.thickness = 10
             if thickness != "":
                 print "Warning: could not parse --border thickness argument '" + thickness + "'. Defaulting thickness to 10 pixels."    
         
@@ -29,7 +29,7 @@ class ImageBorder(Command):
 
     def process(self, image):     
         try:
-            return ImageOps.expand(image, self.__thickness, fill=self.__color)
+            return ImageOps.expand(image, self.thickness, fill=self.color)
         except ValueError:
-            print "Warning: could not parse --border color argument '" + self.__color + "'. Defaulting color to black."
-            return ImageOps.expand(image, self.__thickness, fill="black")
+            print "Warning: could not parse --border color argument '" + self.color + "'. Defaulting color to black."
+            return ImageOps.expand(image, self.thickness, fill="black")
