@@ -140,7 +140,7 @@ argument, it will default to 1.15.</P>
 </OL>
 <P STYLE="margin-bottom: 0.14in"><FONT FACE="Consolas, serif"><FONT SIZE=2>python
 scripts\BatchEdit.zip --input C:\input --output C:\output<BR>--files
-&lsquo;IMG_*.jpg&rsquo; --quality 70 --sharpen -5 --border 20,red
+&lsquo;IMG_*.jpg&rsquo; --quality 70 --sharpen .5 --border 20,red
 --brightness 1.2<BR>--resize --forceorder</FONT></FONT></P>
 <P STYLE="margin-bottom: 0.14in">Note that because we left out the
 <FONT FACE="Consolas, serif"><FONT SIZE=2>--resize</FONT></FONT>
