@@ -91,7 +91,7 @@ pixels. Note that <FONT FACE="Consolas, serif"><FONT SIZE=2><B>--resize</B></FON
 if you resize to 640 pixels and add a border with a thickness of 5,
 the resulting image size will be 640 + 5 + 5 = 650 pixels.</P>
 <P STYLE="margin-bottom: 0in; line-height: 100%"><FONT FACE="Consolas, serif"><FONT SIZE=2><B>--border
-[thickness[,color]]:</B></FONT></FONT> Draws a black border with the
+[thickness[,color]]:</B></FONT></FONT> Draws a border with the
 thickness and color specified on all sides. The thickness should be a
 positive whole number. The color should be a text description, such
 as &ldquo;black&rdquo; or &ldquo;red.&rdquo; Defaults to 10 pixels
