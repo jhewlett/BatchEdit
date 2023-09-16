@@ -27,7 +27,6 @@ class BatchJob:
         for sub in cls.__subclasses__():
             sub_classes.append(sub)
             sub_classes.extend(self.__get_all_commands(sub))
-        print("sub_classes", len(sub_classes))
         return sub_classes     
             
     def __order_commands(self, commands):
