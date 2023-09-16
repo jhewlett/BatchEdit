@@ -20,7 +20,7 @@ class BatchImageEditor:
         if settings.process:
             os.chdir(settings.input)
             
-            print "Getting images from '" + settings.input + "'."
+            print("Getting images from '" + settings.input + "'.")
             
             count = 0
   
@@ -31,10 +31,10 @@ class BatchImageEditor:
                 try:
                     im = Image.open(input_file)
                 except IOError:
-                    print "Warning: could not open input file '" + file_name + "'. Ensure that it is a valid image."
+                    print("Warning: could not open input file '" + file_name + "'. Ensure that it is a valid image.")
                     continue
                 
-                print "Processing image '" + file_name + "'."
+                print("Processing image '" + file_name + "'.")
                 
                 count += 1
                 
@@ -46,6 +46,6 @@ class BatchImageEditor:
                 del im
                 
             if count == 0:
-                print "Could not find any image files matching filter '" + settings.files + "'."
+                print("Could not find any image files matching filter '" + settings.files + "'.")
             else:
-                print "Finished processing " + str(count) + " file(s) to '" + settings.output + "'."
+                print("Finished processing " + str(count) + " file(s) to '" + settings.output + "'.")

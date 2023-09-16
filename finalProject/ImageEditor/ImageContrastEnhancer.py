@@ -1,6 +1,6 @@
 from PIL import ImageEnhance
 import Order
-from Command import Command
+from .Command import Command
 
 class ImageContrastEnhancer(Command):
     def __init__(self, strength):
@@ -9,7 +9,7 @@ class ImageContrastEnhancer(Command):
         except ValueError:
             self.__strength = 1.15
             if strength != "":
-                print "Warning: could not parse --contrast argument '" + strength + "'. Defaulting strength to 1.15."
+                print("Warning: could not parse --contrast argument '" + strength + "'. Defaulting strength to 1.15.")
 
     def get_order(self):
         return Order.MAIN_EDITS

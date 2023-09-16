@@ -1,6 +1,6 @@
 from PIL import Image
 import Order
-from Command import Command
+from .Command import Command
 
 class ImageResizer(Command):
     def __init__(self, final_size):
@@ -10,7 +10,7 @@ class ImageResizer(Command):
         except ValueError:
             self.__new_longest_dim = 640
             if final_size != "":
-                print "Warning: could not parse --resize argument '" + final_size + "'. Defaulting longest dimension to 640 px."
+                print("Warning: could not parse --resize argument '" + final_size + "'. Defaulting longest dimension to 640 px.")
         
     def get_order(self):
         return Order.AFTER_MAIN_EDITS
@@ -22,7 +22,7 @@ class ImageResizer(Command):
     def process(self, image):  
         new_width, new_height = self.__get_new_size(image.size, self.__new_longest_dim)
                     
-        image = image.resize((new_width, new_height), Image.ANTIALIAS)
+        image = image.resize((new_width, new_height))
             
         return image
     

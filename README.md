@@ -5,12 +5,10 @@
 <P STYLE="margin-bottom: 0.14in">BatchEdit is a python application
 for easily editing photos in batch. It has a simple command-line
 interface that will be familiar to UNIX users.</P>
-<P STYLE="margin-bottom: 0.14in">BatchEdit has been tested on Windows
-7 and Ubuntu Linux. It should work on OSX as well.</P>
 <H2 CLASS="western">Prerequisites:</H2>
 <UL>
-	<LI><P STYLE="margin-bottom: 0.14in">Python 2.7</P>
-	<LI><P STYLE="margin-bottom: 0.14in">PIL 1.1.7</P>
+	<LI><P STYLE="margin-bottom: 0.14in">Python 3.9</P>
+	<LI><P STYLE="margin-bottom: 0.14in">Pillow 10.0.1</P>
 </UL>
 <H2 CLASS="western">Installation and Usage:</H2>
 <OL>

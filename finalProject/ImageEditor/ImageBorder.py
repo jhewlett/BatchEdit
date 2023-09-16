@@ -1,6 +1,6 @@
 from PIL import ImageOps
 import Order
-from Command import Command
+from .Command import Command
 
 class ImageBorder(Command):
     def __init__(self, args):
@@ -18,7 +18,7 @@ class ImageBorder(Command):
         except ValueError:
             self.thickness = 10
             if thickness != "":
-                print "Warning: could not parse --border thickness argument '" + thickness + "'. Defaulting thickness to 10 pixels."    
+                print("Warning: could not parse --border thickness argument '" + thickness + "'. Defaulting thickness to 10 pixels."    )
         
     def get_order(self):
         return Order.AFTER_RESIZE
@@ -31,5 +31,5 @@ class ImageBorder(Command):
         try:
             return ImageOps.expand(image, self.thickness, fill=self.color)
         except ValueError:
-            print "Warning: could not parse --border color argument '" + self.color + "'. Defaulting color to black."
+            print("Warning: could not parse --border color argument '" + self.color + "'. Defaulting color to black.")
             return ImageOps.expand(image, self.thickness, fill="black")

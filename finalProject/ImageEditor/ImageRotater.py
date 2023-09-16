@@ -1,7 +1,7 @@
 from PIL.ExifTags import TAGS
 from PIL import Image
 import Order
-from Command import Command
+from .Command import Command
 
 class ImageRotater(Command):
      
@@ -22,7 +22,7 @@ class ImageRotater(Command):
             
         orientation = 1
         
-        if exif_tags.has_key("Orientation"):
+        if "Orientation" in exif_tags:
             orientation = exif_tags["Orientation"]
 
         if orientation == 1:

@@ -1,6 +1,6 @@
 from PIL import ImageEnhance
 import Order
-from Command import Command
+from .Command import Command
 
 class ImageSharpener(Command):
     def __init__(self, strength):
@@ -10,7 +10,7 @@ class ImageSharpener(Command):
         except ValueError:
             self.__strength = 1.3
             if strength != "":
-                print "Warning: could not parse --sharpen argument '" + strength + "'. Defaulting strength to 1.3."
+                print("Warning: could not parse --sharpen argument '" + strength + "'. Defaulting strength to 1.3.")
         
     def get_order(self):
         return Order.AFTER_RESIZE

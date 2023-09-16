@@ -1,7 +1,7 @@
 from PIL import Image
 import Order
 import os
-from Command import Command
+from .Command import Command
 
 class ImageWatermark(Command):
     def __init__(self, path_to_watermark):
@@ -26,14 +26,14 @@ class ImageWatermark(Command):
             try:
                 mark = Image.open(self.__path)
             except IOError:
-                print "Warning: could not open watermark file '" + self.__path + "'. Ensure that it is a valid image file."
+                print("Warning: could not open watermark file '" + self.__path + "'. Ensure that it is a valid image file.")
                 return image
             
             width = mark.size[0]
             height = mark.size[1]
             
-            mid = image.size[0] / 2
-            left_point = mid - width / 2
+            mid = int(image.size[0] / 2)
+            left_point = int(mid - width / 2)
             right_point = left_point + width
             
             if mark.mode == "RGBA":
@@ -45,5 +45,5 @@ class ImageWatermark(Command):
             
             return image
         else:
-            print "Warning: could not find watermark file '" + self.__path + "'."
+            print("Warning: could not find watermark file '" + self.__path + "'.")
             return image

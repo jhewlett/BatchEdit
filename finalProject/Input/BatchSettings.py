@@ -26,10 +26,10 @@ class BatchSettings:
                 try:
                     self.quality = int(value)
                 except ValueError:
-                    print "Warning: could not parse --quality argument '" + value + "'. Defaulting quality to 95."
+                    print("Warning: could not parse --quality argument '" + value + "'. Defaulting quality to 95.")
                 else:
                     if self.quality < 1 or self.quality > 100:
-                        print "Warning: --quality argument needs to be between 1 and 100. Defaulting quality to 95."
+                        print("Warning: --quality argument needs to be between 1 and 100. Defaulting quality to 95.")
                         self.quality = 95
                         
             elif name == "--input":
@@ -61,7 +61,7 @@ class BatchSettings:
                 self.output = os.path.abspath(self.output)
                 os.makedirs(self.output)
             except OSError:
-                print "Error: output path '" + self.output + "' does not exist and could not be created."
+                print("Error: output path '" + self.output + "' does not exist and could not be created.")
                 self.process = False
         else:
             self.output = os.path.abspath(self.output)
@@ -74,7 +74,7 @@ class BatchSettings:
     
     def __check_dir_exists(self, path):
         if not os.path.isdir(path):
-            print "Error: could not find input directory '" + path + "'."
+            print("Error: could not find input directory '" + path + "'.")
             return False
         return True 
     

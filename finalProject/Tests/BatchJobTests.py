@@ -34,7 +34,7 @@ class BatchJobTests(unittest.TestCase):
         
         self.assertEqual(8, len(commands))
         
-        for i in xrange(0, len(commands) - 1):
+        for i in range(0, len(commands) - 1):
             self.assertTrue(commands[i].get_order() <= commands[i+1].get_order(), "Did not order the commands")
                     
         self.assertEqual(0, len(options), "Did not remove options along the way.")

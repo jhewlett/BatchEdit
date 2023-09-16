@@ -8,7 +8,7 @@ class Args:
     def __parse_input(self, args):
         options = []
         
-        for i in xrange(0, len(args)):
+        for i in range(0, len(args)):
             if args[i].startswith("--"):
                 option = args[i]
                 

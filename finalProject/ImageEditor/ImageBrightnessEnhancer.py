@@ -1,6 +1,6 @@
 from PIL import ImageEnhance
 import Order
-from Command import Command
+from .Command import Command
 
 class ImageBrightnessEnhancer(Command):
     def __init__(self, strength):
@@ -9,7 +9,7 @@ class ImageBrightnessEnhancer(Command):
         except ValueError:
             self.__strength = 1
             if strength != "":
-                print "Warning: could not parse --brightness argument '" + strength + "'. Defaulting strength to 1."
+                print("Warning: could not parse --brightness argument '" + strength + "'. Defaulting strength to 1.")
 
     def get_order(self):
         return Order.MAIN_EDITS
